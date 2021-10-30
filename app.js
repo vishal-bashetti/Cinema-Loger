@@ -1,4 +1,7 @@
 // DOM
+// cardLoader
+const cardLoaderWrapper = document.querySelector(".card-loader-wrapper");
+const profile = document.querySelector(".profile");
 const navs = document.querySelectorAll(".nav");
 const movieContainer = document.querySelector(".movie-container");
 // pagination
@@ -13,7 +16,25 @@ let sortValue = "download_count";
 // search input
 const searchBox = document.querySelector(".search-movie-input");
 
+// ------skelton loading------
+let loaderHtml = `
+<div class="card-loader card-loader--tabs"></div>
+`;
+for (let i = 0; i < 10; i++) {
+  const div = document.createElement("div");
+  div.innerHTML = loaderHtml;
+  movieContainer.append(div);
+}
+// ------skelton loading end------
+
 // Event Listeners
+
+profile.addEventListener("click", () => {
+  profile.classList.toggle("active");
+});
+
+window.addEventListener("load", loadCards);
+
 searchBox.addEventListener("input", () => {
   const val = searchBox.value;
   searchMovie(val);
@@ -50,9 +71,21 @@ navs.forEach((nav) => {
     callGetMovieFunc();
   });
 });
-getAllMovies(sortValue);
 // Functions
-
+function triggerHoverEffect() {
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    card.addEventListener("mouseenter", function () {
+      this.children[0].children[3].classList.remove("hidden");
+    });
+    card.addEventListener("mouseleave", function () {
+      this.children[0].children[3].classList.add("hidden");
+    });
+  });
+}
+function loadCards() {
+  getAllMovies(sortValue);
+}
 function searchMovie(value) {
   const xhr = new XMLHttpRequest();
   xhr.open(
@@ -65,6 +98,7 @@ function searchMovie(value) {
         const data = JSON.parse(xhr.responseText);
         lastPage.innerText = Math.ceil(data.data.movie_count / 20);
         movieContainer.innerHTML = "";
+
         if (data.data.movie_count > 0) {
           data.data.movies.forEach((m) => {
             const { year, title, genres, medium_cover_image: image } = m;
@@ -79,18 +113,22 @@ function searchMovie(value) {
 function callGetMovieFunc() {
   getAllMovies();
 }
-function createCard(year, title, genres, image) {
+function createCard(year, title, genres, image,rating) {
   const html = `
-  <div class="card-img">
-    <img src="${image}" alt="">
-  </div>
-  <div class="card-title">${title}</div>
-  <div class="card-date">${year}</div>
-  <div class="card-hover hidden">
-    <div class="card-rating">6.1/10</div>
-    <div class="card-gener">
-      <div>Comedy</div>
-      <div>History</div>
+  <div class="card-container">
+
+    <div class="card-img">
+      <img src="${image}" alt="">
+    </div>
+    <div class="card-title">${title}</div>
+    <div class="card-date">${year}</div>
+    <div class="card-hover hidden">
+      <div class="card-rating">${rating}/10</div>
+      <div class="card-gener">
+        <div>${genres[0]}</div>
+        <div>${genres[1]}</div>
+        <div>${genres[2]}</div>
+      </div>
     </div>
   </div>
   `;
@@ -114,9 +152,10 @@ function getAllMovies() {
         lastPage.innerText = Math.floor(data.data.movie_count / 20);
         movieContainer.innerHTML = "";
         data.data.movies.forEach((m) => {
-          const { year, title, genres, medium_cover_image: image } = m;
-          createCard(year, title, genres, image);
+          const { year, title, genres, rating, medium_cover_image: image } = m;
+          createCard(year, title, genres, image ,rating);
         });
+        triggerHoverEffect();
       }
     }
   };

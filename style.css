@@ -26,9 +26,26 @@ body {
 .profile {
   width: 40px;
   height: 40px;
+  margin-left: 10px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 8px 8px 16px #68768b, inset -8px -8px 16px #c2daff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.profile.active {
+  background: linear-gradient(
+    299.64deg,
+    #c3d1e4 -0.02%,
+    #dde7f3 54.14%,
+    #d4e0ed 100.43%
+  );
+
+  box-shadow: 8px 8px 26px #5e6a7d, -8px -8px 26px #cce6ff;
+}
+
 .search-movie-input {
   width: 370px;
   height: 40px;
@@ -80,7 +97,7 @@ nav div {
     #dde7f3 54.14%,
     #d4e0ed 100.43%
   );
-
+  padding: 0 10px;
   box-shadow: inset 8px 8px 26px #5e6a7d, inset -8px -8px 26px #cce6ff;
   margin: 5px;
 }
@@ -119,7 +136,9 @@ nav .active {
   cursor: pointer;
   box-shadow: 18px 18px 36px #7f8fa8, -18px -18px 36px #abc1e4;
 }
-
+.card:hover img{
+  filter: blur(4px) brightness(60%);
+}
 .card-hover {
   position: absolute;
   width: 100%;
@@ -182,7 +201,74 @@ nav .active {
     -8px -8px 18px 0 rgba(255, 255, 255, 0.55);
 }
 
-.asd {
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+/* card Pre Loading */
+
+.card-loader {
+  width: 230px;
+  height: 430px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px;
+  user-select: none;
+  cursor: pointer;
+
+  /* box-shadow: 18px 18px 36px #7f8fa8, -18px -18px 36px #abc1e4; */
+
+  background-color: #fff;
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.08),
+    0 -1px 3px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+.card-loader:only-child {
+  margin-top: 0;
+}
+.card-loader:before {
+  content: "";
+  width: 500px;
+  height: 345px;
+  display: block;
+  background-color: #ededed;
+  box-shadow: -140px 210px 0 -153px #ededed;
+}
+.card-loader:after {
+  content: "";
+  background-color: #333;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-name: loader-animate;
+  animation-timing-function: linear;
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0) 81%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0) 81%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(255, 255, 255, 0) 81%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00ffffff", endColorstr="#00ffffff",GradientType=1 );
+}
+
+@keyframes loader-animate {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
