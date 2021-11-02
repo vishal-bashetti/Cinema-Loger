@@ -90,7 +90,6 @@ function createModal(
   img,
   bgImg
 ) {
-  console.log(bgImg);
   const html = `
   <div class="card-modal-header">
   <div class="card-modal-title">
@@ -123,7 +122,11 @@ function createModal(
           <span class="cast-name">cast:</span>
           <div class="all-cast">
           ${Array.from(cast)
-            .map((c) => `<span class="btn">${c.name}</span>`)
+            .map(
+              (c) => `
+          
+            <span class="cast-names">${c.name}</span>`
+            )
             .join("")}
               
               
@@ -159,10 +162,21 @@ function createModal(
   div.classList.add("card-modal");
   div.innerHTML = html;
   cardMovieContainer.append(div);
+
+  // close btn event listener
   const closeModal = document.querySelector(".close");
   closeModal.addEventListener("click", () => {
     cardMovieContainer.classList.add("hidden");
     container.classList.remove("hidden");
+  });
+
+  // cast and genres event listenre
+  const allGenre = document.querySelectorAll(".gener .btn");
+  allGenre.forEach((genre) => {
+    genre.addEventListener("click", () => {
+      const val = genre.innerText;
+      // getMoviesByGenre(val);
+    });
   });
 }
 
@@ -192,7 +206,6 @@ function getMovieId(id) {
         const data = JSON.parse(xhr.responseText);
 
         const allDesc = data.data.movie;
-        console.log(allDesc);
         const {
           year,
           cast,
@@ -215,6 +228,7 @@ function getMovieId(id) {
           img,
           bgImg
         );
+        console.log(cast);
       }
     }
   };
@@ -336,7 +350,7 @@ function getMoviesByGenre(genre) {
   const xhr = new XMLHttpRequest();
   xhr.open(
     "get",
-    `https://yts.mx/api/v2/list_movies.json?genre={genre}&sort_by=year`
+    `https://yts.mx/api/v2/list_movies.json?genre=${genre}&sort_by=download_count`
   );
   xhr.onload = function () {
     if (xhr.readyState === 4) {

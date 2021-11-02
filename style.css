@@ -372,6 +372,12 @@ nav .active {
 .card-modal-wrapper .center .cast .cast-name {
   margin-top: 8px;
 }
+.card-modal-wrapper .center .cast .cast-names {
+  box-shadow: 8px 4px 15px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+  margin: 5px 10px;
+  padding: 0 10px;
+}
 .card-modal-wrapper .center .cast .all-cast {
   display: flex;
   flex-wrap: wrap;
