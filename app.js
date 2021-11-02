@@ -1,5 +1,6 @@
 // DOM
 const container = document.querySelector(".container");
+const body = document.getElementsByTagName("body");
 // Movie container
 const cardMovieContainer = document.querySelector(".card-modal-container");
 // cardLoader
@@ -159,8 +160,9 @@ function createModal(
   const closeModal = document.querySelector(".close");
   closeModal.addEventListener("click", () => {
     cardMovieContainer.classList.add("hidden");
-    movieContainer.classList.remove("hidden");
+    container.classList.remove("hidden");
   });
+  
 }
 
 function triggerModals() {
@@ -169,7 +171,7 @@ function triggerModals() {
     card.addEventListener("click", function () {
       const id = this.children[0].children[0].innerText;
       cardMovieContainer.innerHTML = "";
-      movieContainer.classList.add("hidden");
+      container.classList.add("hidden");
       cardMovieContainer.classList.remove("hidden");
 
       getMovieId(id);

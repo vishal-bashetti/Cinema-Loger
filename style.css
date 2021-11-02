@@ -291,7 +291,9 @@ nav .active {
   }
 }
 /* movie modal popup */
-
+.card-modal-container {
+  margin-top: 70px;
+}
 .card-modal {
   width: 90%;
   padding: 20px;
@@ -337,6 +339,7 @@ nav .active {
 
 .card-modal-wrapper .center .gener {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .card-modal-wrapper .center .gener .btn {
@@ -347,14 +350,10 @@ nav .active {
   width: 33%;
   flex-wrap: wrap;
 }
-.card-modal-wrapper .center .director {
-  display: flex;
-  align-items: center;
-}
-.card-modal-wrapper .center .director .btn {
+.card-modal-wrapper .center .gener .btn {
   width: max-content;
 }
-.card-modal-wrapper .center .director .btn:hover,
+.card-modal-wrapper .center .gener .btn:hover,
 .card-modal-wrapper .center .cast .btn:hover {
   background: linear-gradient(
     299.64deg,
@@ -477,5 +476,8 @@ nav .active {
   }
   .card-modal {
     width: 80%;
+  }
+  .card-modal-container {
+    margin-top: 30px;
   }
 }
