@@ -113,18 +113,20 @@ function createModal(
   </div>
   <div class="center">
       <div class="gener">
-          <div class="btn">sci-fi</div>
-          <div class="btn">comedy</div>
-          <div class="btn">sci-fi</div>
-          <div class="btn">comedy</div>
+
+      ${Array.from(genres)
+        .map((g) => `<div class="btn">${g}</div>`)
+        .join("")}
       </div>
       
       <div class="cast">
           <span class="cast-name">cast:</span>
-          <div class="all-cast"><span class="btn">spider</span>
-              <span class="btn">spider</span>
-              <span class="btn">spideaaaaaaaaar</span>
-              <span class="btn">spider</span>
+          <div class="all-cast">
+          ${Array.from(cast)
+            .map((c) => `<span class="btn">${c.name}</span>`)
+            .join("")}
+              
+              
           </div>
       </div>
       <div class="trailer">
@@ -162,7 +164,6 @@ function createModal(
     cardMovieContainer.classList.add("hidden");
     container.classList.remove("hidden");
   });
-  
 }
 
 function triggerModals() {
